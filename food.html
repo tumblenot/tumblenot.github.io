@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shanghai LLKY (Oct 9–14, 2026)</title>
+  <meta name="description" content="Mobile-friendly trip resource page: flights, hotel, itinerary, contacts, and food picks for Shanghai (Oct 9–14, 2026)." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,400;17..18,500;17..18,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f5f7;
+      --card:#ffffff;
+      --muted:#4b5563;
+      --text:#111827;
+      --accent:#2563eb;
+      --border: rgba(17,24,39,.14);
+      --shadow: 0 10px 30px rgba(0,0,0,.10);
+      --radius: 16px;
+      --radius2: 12px;
+      --max: 860px;
+
+      /* Pills */
+      --color-1: rgba(37, 99, 235, 0.05);
+      --color-2: rgba(235, 37, 199, 0.05);
+      --color-3: rgba(235, 172, 37, 0.05);
+      --color-4: rgba(37, 235, 73, 0.05);
+      --color-5: rgba(37, 199, 235, 0.05);
+
+      --sans: "Google Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --body-size: 14px;
+      --body-leading: 1.45;
+
+      --food-title: #3B3B7A;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color:var(--text);
+      background: var(--bg);
+      line-height: var(--body-leading);
+      font-size: var(--body-size);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max); margin:0 auto; padding:20px 16px 64px}
+
+    header{
+      position: sticky; top: 0; z-index: 50;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .head-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:18px 16px 16px;
+    }
+
+    .banner{
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      min-height: 182px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background-color: #f3f4f6;
+      background-image: url("shanghaiskyline.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .banner img{
+      position:absolute;
+      width:1px;
+      height:1px;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .banner-content{
+      position:absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 44px;
+      pointer-events:none;
+      text-align: center;
+    }
+    h1{
+      font-family: var(--sans);
+      font-size: 27px;
+      font-weight: 700;
+      margin:0;
+      color: #ffffff;
+      letter-spacing: .1px;
+      line-height: 1.1;
+      text-shadow: none;
+      background: transparent;
+    }
+
+    .top-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:12px;
+    }
+
+    /* Pills */
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:13px; padding:8px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      color: var(--text);
+      background: var(--color-1);
+    }
+    .pill-row .pill:nth-child(1){ background: var(--color-1); } /* Flights */
+    .pill-row .pill:nth-child(2){ background: var(--color-2); } /* Hotel */
+    .pill-row .pill:nth-child(3){ background: var(--color-3); } /* Itinerary */
+    .pill-row .pill:nth-child(4){ background: var(--color-4); } /* Contacts */
+    .pill-row .pill:nth-child(5){ background: var(--color-5); } /* Activities */
+    .pill-row .pill:nth-child(6){ background: var(--color-1); } /* Food */
+
+    main{padding-top:18px}
+    section{
+      scroll-margin-top: 240px;
+      margin-top:14px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .sec-head{
+      padding:14px 14px 12px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-bottom:1px solid var(--border);
+    }
+    .sec-head h2{
+      margin:0;
+      font-size:16px;
+      font-family: var(--sans);
+      font-weight: 700;
+      letter-spacing: .1px;
+    }
+    .sec-head .hint{color:var(--muted); font-size:12px; font-weight:500}
+
+    /* Section header backgrounds */
+    #flights .sec-head{ background: var(--color-1); }
+    #hotel .sec-head{ background: var(--color-2); }
+    #itinerary .sec-head{ background: var(--color-3); }
+    #contacts .sec-head{ background: var(--color-4); }
+    #food .sec-head{ background: var(--color-1); }
+
+    .sec-body{
+      padding:14px;
+      font-size: var(--body-size);
+      line-height: var(--body-leading);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .grid.two{
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 720px){
+      .grid.two{grid-template-columns: 1fr 1fr;}
+    }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      background: #fff;
+      padding:12px;
+      font-size: var(--body-size);
+      line-height: var(--body-leading);
+    }
+    .label{color:var(--muted); font-size:12px; margin-bottom:4px}
+    .value{font-size: var(--body-size)}
+    .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(17,24,39,.03);
+      color:var(--text);
+      font-size: var(--body-size);
+      text-decoration:none;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{border-color: rgba(37,99,235,.35); background: rgba(37,99,235,.10)}
+    details{
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      background: #fff;
+      padding:10px 12px;
+      font-size: var(--body-size);
+      line-height: var(--body-leading);
+    }
+    summary{cursor:pointer; font-weight:700; font-size:14px}
+    .it-meta{color:var(--muted); font-size:12px; margin-top:6px}
+    ul{margin:10px 0 0; padding-left:18px}
+    li{margin:6px 0}
+    .note{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px dashed rgba(17,24,39,.20);
+      color:var(--muted);
+      font-size:13px;
+      background: rgba(17,24,39,.02);
+    }
+
+    /* Food lists */
+    .food-item{ margin: 10px 0 0; padding: 10px 10px; border-radius: 12px; border: 1px solid rgba(17,24,39,.08); background: rgba(245,245,247,.8); }
+    .food-top{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .food-name{ font-weight:700; color: var(--food-title); }
+    .food-meta{ color: var(--muted); font-size:12px; margin-top:4px; }
+    .tag{
+      display:inline-flex; align-items:center;
+      padding:4px 8px;
+      font-size:12px;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.7);
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .food-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .food-actions a{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.75);
+      color: var(--text);
+      font-size: 13px;
+      text-decoration:none;
+    }
+
+    footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+    }
+
+    @media (min-width: 720px){
+      h1{font-size:34px}
+      .banner{min-height: 220px;}
+      section{scroll-margin-top: 250px;}
+      .banner-content{
+        left:16px; right:16px;
+        bottom:46px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="head-inner">
+      <div class="banner" aria-label="Shanghai skyline banner">
+        <img alt="Shanghai skyline" src="shanghaiskyline.png" />
+        <div class="banner-content">
+          <h1>Shanghai LLKY</h1>
+        </div>
+      </div>
+
+      <div class="top-row">
+        <nav class="pill-row" aria-label="Quick navigation">
+          <a class="pill" href="shanghai.html#flights">Flights</a>
+          <a class="pill" href="shanghai.html#hotel">Hotel</a>
+          <a class="pill" href="shanghai.html#itinerary">Itinerary</a>
+          <a class="pill" href="shanghai.html#contacts">Contacts</a>
+          <a class="pill" href="activities.html">Activities</a>
+          <a class="pill" href="food.html">Food</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main>
+      <!-- FOOD -->
+      <section id="food">
+        <div class="sec-head">
+          <h2>Food</h2>
+          <div class="hint">Local favourites (Oct = peak crab roe season)</div>
+        </div>
+        <div class="sec-body">
+          <div class="note">
+            Tips: October is peak season for <strong>crab roe</strong> &amp; <strong>hairy crab</strong>.
+            Popular crab restaurants may require booking weeks ahead.
+          </div>
+
+          <!-- Breakfast -->
+          <details open>
+            <summary>Breakfast (before 10am)</summary>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Yang’s Fried Dumplings (小杨生煎馆)</div>
+                  <div class="food-meta">French Concession / Jing’an (multiple branches) • Best: 7–10am (before 8am)</div>
+                </div>
+                <span class="tag">¥8–13</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Shengjian bao 生煎包; Old duck vermicelli soup 老鸭粉丝汤</li>
+                <li><strong>Address:</strong> 178 Wujiang Lu (near People’s Square); Jing’an Temple branch (often shorter queue)</li>
+                <li><strong>Tip:</strong> Nibble a small hole first—sip soup, then bite.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=小杨生煎馆%20178%20吴江路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Da Hu Chun (大壶春生煎)</div>
+                  <div class="food-meta">Huangpu • Opens from 6:30am</div>
+                </div>
+                <span class="tag">¥12–15</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Traditional shengjian (thicker dough, smokier base)</li>
+                <li><strong>Address:</strong> 136 Middle Sichuan Rd, Huangpu</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=大壶春生煎%20136%20四川中路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Fuchun XiaoLong (富春小笼)</div>
+                  <div class="food-meta">Jing’an • Best: 7–9am (freshest)</div>
+                </div>
+                <span class="tag">¥25–58</span>
+              </div>
+              <ul>
+                <li><strong>Must order (Oct):</strong> Crab roe xiaolongbao 蟹粉小笼; Pork xiaolongbao</li>
+                <li><strong>Address:</strong> 650 Yuyuan Rd, Jing’an</li>
+                <li><strong>Note:</strong> Crab roe version is best in Oct–Nov.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=富春小笼%20650%20愚园路%20上海">Map</a>
+                <a href="tel:+862162525117">Call</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">A Da Scallion Pancake (阿大葱油饼)</div>
+                  <div class="food-meta">Huangpu • Opens 8am, sells out ~10am</div>
+                </div>
+                <span class="tag">~¥10</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Scallion pancake 葱油饼</li>
+                <li><strong>Tip:</strong> Arrive early—queues, limited stock; eat standing.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=阿大葱油饼%20瑞金二路120-4号%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Jiajia Tang Bao (佳家汤包)</div>
+                  <div class="food-meta">Huangpu (near People’s Square) • Morning best</div>
+                </div>
+                <span class="tag">¥25–45</span>
+              </div>
+              <ul>
+                <li><strong>Must order (Oct):</strong> Pure crab roe XLB (seasonal); Pork XLB</li>
+                <li><strong>Tip:</strong> Minimal English—point and pay.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=佳家汤包%20人民广场%20上海">Map</a>
+              </div>
+            </div>
+          </details>
+
+          <!-- Noodles -->
+          <details>
+            <summary>Noodles &amp; quick lunch</summary>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Yuxing Ji Crab Roe Noodles (裕兴记蟹黄面馆)</div>
+                  <div class="food-meta">Jing’an • 8am–10pm • Queue by 11am</div>
+                </div>
+                <span class="tag">¥35–80</span>
+              </div>
+              <ul>
+                <li><strong>Must order (Oct):</strong> Crab roe noodles 蟹黄面</li>
+                <li><strong>Address:</strong> 830 Weihai Rd, Jing’an</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=裕兴记蟹黄面馆%20威海路830号%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Henan Lamian (河南拉面)</div>
+                  <div class="food-meta">Xuhui • Lunch 11–2 • Dinner 5–9</div>
+                </div>
+                <span class="tag">¥18–28</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Scallion oil noodles 葱油拌面; Hand-pulled beef noodles</li>
+                <li><strong>Address:</strong> Xuhui 长乐路607号</li>
+                <li><strong>Tip:</strong> Go upstairs—tiny dining room.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=河南拉面%20长乐路607号%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Ding Te Le (鼎特乐)</div>
+                  <div class="food-meta">Xuhui • Lunch 11–2 • Get there before 12:30</div>
+                </div>
+                <span class="tag">No frills</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Scallion oil + pork shreds 葱油肉丝面; Dan dan noodles 担担面</li>
+                <li><strong>Address:</strong> 494 Huaihai Middle Rd, Xuhui</li>
+                <li><strong>Tip:</strong> No frills. Go before 12:30 (queues build fast).</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=鼎特乐%20494%20淮海中路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Lanxin Restaurant (兰心餐厅)</div>
+                  <div class="food-meta">Jing’an / Former Luwan • Closed Mon</div>
+                </div>
+                <span class="tag">¥80–120</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Braised pork; Braised fish head; Cold tofu</li>
+                <li><strong>Address:</strong> 130 Jinxian Rd (进贤路130号)</li>
+                <li><strong>Note:</strong> No English menu.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=兰心餐厅%20进贤路130号%20上海">Map</a>
+              </div>
+            </div>
+          </details>
+
+          <!-- Shanghainese -->
+          <details>
+            <summary>Shanghainese</summary>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Old Jesse (老吉士)</div>
+                  <div class="food-meta">Xuhui • Best: lunch &amp; dinner</div>
+                </div>
+                <span class="tag">¥80–150</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Braised pork belly; Scallion-braised fish head; Drunken chicken; Scallion oil noodles</li>
+                <li><strong>Address:</strong> 41 Tianping Rd, Xuhui • <a href="tel:+862162829260">+86 21 6282-9260</a></li>
+                <li><strong>Tips:</strong> Enviro branch at IAPM Mall for groups—book ahead.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=老吉士%2041%20天平路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Ye Shanghai (夜上海)</div>
+                  <div class="food-meta">Huangpu • Book 3–4 weeks ahead</div>
+                </div>
+                <span class="tag">¥150–250</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Hairy crab; Braised yellow croaker; Drunken shrimp</li>
+                <li><strong>Address:</strong> 168 Hubin Rd, Huangpu</li>
+                <li><strong>Tips:</strong> Request a private room for a group of 15. Michelin Bib Gourmand.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=夜上海%20168%20湖滨路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Yong Xing Noodle House (永兴面馆) / Lao Difang (老地方)</div>
+                  <div class="food-meta">Xuhui • Best: lunch &amp; dinner</div>
+                </div>
+                <span class="tag">¥30–50</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Braised river eel noodles; Scallion oil noodles; Slow-cooked toppings</li>
+                <li><strong>Address:</strong> 233 Xiangyang Rd, Xuhui</li>
+                <li><strong>Tips:</strong> Small lane-house setting—very local. Minimal English.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=永兴面馆%20襄阳路233号%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Guangming Cun (光明邨大酒家)</div>
+                  <div class="food-meta">Opens 8am • Weekend queues</div>
+                </div>
+                <span class="tag">¥60–100</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Braised pork knuckle; Shanghainese dim sum; Ba bao fan 八宝饭; Nian gao</li>
+                <li><strong>Address:</strong> 588 Huaihai Middle Rd</li>
+                <li><strong>Tips:</strong> Famous for gift pastries and nian gao.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=光明邨大酒家%20淮海中路588号%20上海">Map</a>
+              </div>
+            </div>
+          </details>
+
+          <!-- Dinner -->
+          <details>
+            <summary>Dinner</summary>
+            <div class="note">
+              These are the group dinner options for the 4 nights (Main + Alternatives), from your dinner sheet.
+              Booking windows are important in October.
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Sat 11 Oct (Welcome dinner)</div>
+                  <div class="food-meta">Budget: ~S$50–70/pax • Reserve: 1 week ahead (WeChat mini-program)</div>
+                </div>
+                <span class="tag">Peking duck</span>
+              </div>
+              <ul>
+                <li><strong>Main:</strong> DaDong 大董 — iapm Mall (5 min walk)</li>
+                <li><strong>Why:</strong> Leaner duck; better than Quan Ju De; convenient to Mia Hotel.</li>
+                <li><strong>Alternatives:</strong> Siji Minfu 四季民福 (Hong Kong Plaza) • Quan Ju De 全聚德 (classic, more touristy)</li>
+              </ul>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Sun 12 Oct (Free &amp; Easy dinner)</div>
+                  <div class="food-meta">Budget: ~S$40–55/pax • Reserve: 3–4 weeks ahead (request private room)</div>
+                </div>
+                <span class="tag">Hairy crab season</span>
+              </div>
+              <ul>
+                <li><strong>Main:</strong> Ye Shanghai 夜上海 — Infinitus Plaza, 168 Hubin Rd</li>
+                <li><strong>Why:</strong> Michelin Bib; elegant 1930s setting; great for group.</li>
+                <li><strong>Alternatives:</strong> Old Jesse 老吉士 (41 Tianping Rd, Xuhui; very local) • Sue Dim Sum 苏小柳 (casual, kid-friendly)</li>
+              </ul>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Mon 13 Oct (Post-Hangzhou)</div>
+                  <div class="food-meta">Budget: ~S$60–80/pax • Reserve: ⚠️ 3 weeks ahead (Oct demand extreme)</div>
+                </div>
+                <span class="tag">Peak crab</span>
+              </div>
+              <ul>
+                <li><strong>Main:</strong> Cheng Long Hang 成隆行 — 616 Fuzhou Rd, Huangpu</li>
+                <li><strong>Why:</strong> Top pick; Shanghai’s #1 hairy crab restaurant; October peak.</li>
+                <li><strong>Alternatives:</strong> Ren He Guan 人和馆 (407 Zhaojiabang Rd; swap if full) • Xiao Tao Yuan 小桃园 (simple comfort)</li>
+              </ul>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Tue 14 Oct (Farewell dinner)</div>
+                  <div class="food-meta">Budget: ~S$47/pax (¥250) • Reserve: ⚠️ 3 weeks ahead (pre-order pork belly; request 2 private rooms)</div>
+                </div>
+                <span class="tag">Michelin</span>
+              </div>
+              <ul>
+                <li><strong>Main:</strong> Ren He Guan 人和馆 — 407 Zhaojiabang Rd</li>
+                <li><strong>Why:</strong> Michelin; pre-order hong shao rou via WeChat (“renheguan”); old Shanghai retro interior; 2 private rooms.</li>
+                <li><strong>Alternatives:</strong> Ye Shanghai 夜上海 (if not done Sun) • House of Rong 荣府宴 (Taizhou cuisine)</li>
+              </ul>
+            </div>
+          </details>
+
+          <!-- Hairy crab specialists -->
+          <details>
+            <summary>Hairy crab specialists (October = peak)</summary>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Cheng Long Hang (成隆行蟹王府) — Michelin 1★</div>
+                  <div class="food-meta">Huangpu • Must book in Oct</div>
+                </div>
+                <span class="tag">¥300–500</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Crab roe &amp; oil rice 禿黄油撈飯</li>
+                <li><strong>Address:</strong> 216 Jiujiang Rd, Huangpu</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=成隆行蟹王府%20九江路216号%20上海">Map</a>
+                <a href="tel:+862163212010">Call</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Ren He Guan (人和馆) — Michelin 1★</div>
+                  <div class="food-meta">Xuhui • Book ~3 weeks ahead</div>
+                </div>
+                <span class="tag">~¥250</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Crab roe rice 蟹粉饭; Braised pork belly 红烧肉</li>
+                <li><strong>Address:</strong> 407 Zhaojiabang Rd, Xuhui</li>
+                <li><strong>Tips:</strong> PRE‑ORDER hong shao rou via WeChat: <strong>renheguan</strong>. Request 2 private rooms for a group of 15.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=人和馆%20407%20赵家浜路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Cejerdary (蟹家大院)</div>
+                  <div class="food-meta">Xuhui (multiple branches) • Best: book ahead for Oct</div>
+                </div>
+                <span class="tag">¥100–400</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Golden crabmeat noodles (12 crabs + edible gold flakes) ¥360; Crab roe noodles ¥72; Crab in hollowed orange ¥58; Crab XLB; Steamed whole hairy crab</li>
+                <li><strong>Address:</strong> 1266 Kaixuan Rd • <a href="tel:+862152300008">+86 21 5230-0008</a></li>
+                <li><strong>Tips:</strong> Good if you don’t want to handle live crabs—staff will crack &amp; extract for you. Budget entry: crab in orange ¥58.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=蟹家大院%201266%20凯旋路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Lin Long Fang (麟笼坊)</div>
+                  <div class="food-meta">Former French Concession • Best: morning / lunch</div>
+                </div>
+                <span class="tag">¥35–55</span>
+              </div>
+              <ul>
+                <li><strong>Must order (Oct–Nov):</strong> Pure crab roe XLB (no pork; seasonal only); Pork XLB</li>
+                <li><strong>Tips:</strong> Pure crab roe version is only available Oct–Nov. Small shop—expect a queue. Great as a post‑Wukang walk XLB top‑up.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=麟笼坊%20上海">Map</a>
+              </div>
+            </div>
+          </details>
+
+          <!-- Street snacks & desserts -->
+          <details>
+            <summary>Street snacks &amp; desserts</summary>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Harbin Food Factory (哈尔滨食品厂)</div>
+                  <div class="food-meta">Xuhui • Opens 8:30am</div>
+                </div>
+                <span class="tag">¥20–55</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Butterfly pastries; Almond florentines; Cream puffs; Old Shanghai biscuits (gift box)</li>
+                <li><strong>Address:</strong> 603 Huaihai Middle Rd</li>
+                <li><strong>Tips:</strong> EAT ON THE SPOT — butterfly pastries go soft quickly. Buy as gifts.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=哈尔滨食品厂%20淮海中路603号%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">HAI550 Matcha Wang (抹茶王)</div>
+                  <div class="food-meta">Xuhui • Open all day</div>
+                </div>
+                <span class="tag">¥28–45</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Sheep matcha soft serve; Matcha mochi balls; Seasonal autumn specials</li>
+                <li><strong>Address:</strong> 550 Huaihai Middle Rd</li>
+                <li><strong>Tips:</strong> Sheep soft serve is a hit with kids.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=抹茶王%20淮海中路550号%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Xiao Tao Yuan (小桃园)</div>
+                  <div class="food-meta">Xuhui • Opens 6am</div>
+                </div>
+                <span class="tag">¥15–25</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Soy milk (toasted sesame); Giant scallion flatbread; Xiaolongbao; Congee &amp; fried dough sticks</li>
+                <li><strong>Address:</strong> 1251 Fuxing Middle Rd, Xuhui</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=小桃园%201251%20复兴中路%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Er Guang Wonton (耳光馄饨)</div>
+                  <div class="food-meta">Jing’an • Best: lunch &amp; late night</div>
+                </div>
+                <span class="tag">¥30–55</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Scallion oil dry noodles; Small wontons; Dan dan noodles</li>
+                <li><strong>Address:</strong> 84 Anyuan Rd, Jing’an</li>
+                <li><strong>Tips:</strong> Good noodle stop after Science Museum or EKA.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=耳光馄饨%20安远路84号%20上海">Map</a>
+              </div>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Zhen Yuan Rice Dumplings (真圆粢饭团) — “No-name” rice rolls</div>
+                  <div class="food-meta">Jing’an • 6:30–9:00am only</div>
+                </div>
+                <span class="tag">¥8–9</span>
+              </div>
+              <ul>
+                <li><strong>Must order:</strong> Sticky rice roll 粢饭团 — Sweet (red bean paste + fried dough stick) or Savoury (pork floss + pickled veg)</li>
+                <li><strong>Address:</strong> 993 West Nanjing Rd (Maoming Rd intersection)</li>
+                <li><strong>Tips:</strong> Open mornings only; sells out early.</li>
+              </ul>
+              <div class="food-actions">
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=真圆粢饭团%20993%20南京西路%20上海">Map</a>
+              </div>
+            </div>
+          </details>
+
+          <!-- Hangzhou Day Trip -->
+          <details>
+            <summary>Hangzhou Day Trip (Day 3) — what to eat</summary>
+            <div class="note">Ask the guide to choose a non-touristy restaurant near the Tea Village / West Lake area.</div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Longjing Tea Shrimp (龙井虾仁)</div>
+                  <div class="food-meta">Freshwater shrimp stir-fried with Dragon Well tea leaves</div>
+                </div>
+                <span class="tag">¥88–168</span>
+              </div>
+              <ul>
+                <li><strong>Tip:</strong> Zhiwei Guan 知味观 chain is reliable, best near Longjing Tea Village.</li>
+              </ul>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Dongpo Pork (东坡肉)</div>
+                  <div class="food-meta">Classic Hangzhou braised pork belly</div>
+                </div>
+                <span class="tag">¥68–98</span>
+              </div>
+              <ul>
+                <li><strong>Tip:</strong> One portion often shares well (2–3 kids or 1–2 adults); try restaurants near XiXi Wetland.</li>
+              </ul>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">West Lake Vinegar Fish (西湖醋鱼)</div>
+                  <div class="food-meta">Whole fish in sweet-sour vinegar glaze</div>
+                </div>
+                <span class="tag">¥68–128</span>
+              </div>
+              <ul>
+                <li><strong>Tip:</strong> Some places do boneless version; avoid Hefang Street (tourist trap).</li>
+              </ul>
+            </div>
+
+            <div class="food-item">
+              <div class="food-top">
+                <div>
+                  <div class="food-name">Beggar’s Chicken (叫花鸡)</div>
+                  <div class="food-meta">Lotus-leaf wrapped chicken baked in clay</div>
+                </div>
+                <span class="tag">¥138–198</span>
+              </div>
+              <ul>
+                <li><strong>Tip:</strong> 1 chicken feeds 4; theatrical reveal; order ahead (30 minutes).</li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <footer>
+        Last updated: <span id="updatedAt"></span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('updatedAt').textContent =
+      new Date().toLocaleString('en-SG', { timeZone: 'Asia/Singapore' });
+
+    function download(filename, text) {
+      const element = document.createElement('a');
+      element.setAttribute('href', 'data:text/calendar;charset=utf-8,' + encodeURIComponent(text));
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+
+    function toICSDate(d){
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const dd = String(d.getDate()).padStart(2,'0');
+      return `${yyyy}${mm}${dd}`;
+    }
+
+    document.getElementById('addToCalendarBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const TRIP_YEAR = 2026;
+      const start = new Date(TRIP_YEAR, 9, 9);
+      const end   = new Date(TRIP_YEAR, 9, 15);
+
+      const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Shanghai LLKY//Resource Page//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:${Date.now()}@shanghai-llky
+DTSTAMP:${toICSDate(new Date())}T000000Z
+SUMMARY:Shanghai Trip (Oct 9–14, 2026)
+DTSTART;VALUE=DATE:${toICSDate(start)}
+DTEND;VALUE=DATE:${toICSDate(end)}
+DESCRIPTION:Flights, hotel, itinerary, contacts, and food picks.
+END:VEVENT
+END:VCALENDAR`;
+
+      download('Shanghai-Trip-Oct9-14-2026.ics', ics);
+    });
+
+    const HOTEL_MAP_URL = "";
+    const HOTEL_SITE_URL = "";
+    const hotelMapBtn = document.getElementById('hotelMapBtn');
+    const hotelWebsiteBtn = document.getElementById('hotelWebsiteBtn');
+
+    hotelMapBtn.addEventListener('click', (e) => {
+      if(!HOTEL_MAP_URL){ e.preventDefault(); alert("Add your hotel map link in the HTML (HOTEL_MAP_URL)."); }
+    });
+    hotelWebsiteBtn.addEventListener('click', (e) => {
+      if(!HOTEL_SITE_URL){ e.preventDefault(); alert("Add your hotel website link in the HTML (HOTEL_SITE_URL)."); }
+    });
+
+    if(HOTEL_MAP_URL) hotelMapBtn.href = HOTEL_MAP_URL;
+    if(HOTEL_SITE_URL) hotelWebsiteBtn.href = HOTEL_SITE_URL;
+  </script>
+</body>
+</html>
