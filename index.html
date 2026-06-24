@@ -1,6 +1,162 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <h1>Welcome to my new website!</h1>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>microbe.sg — Home</title>
+<meta name="description" content="Welcome to microbe.sg. No worries — you haven't landed on anything contagious." />
+<meta property="og:title" content="microbe.sg — Home" />
+<meta property="og:description" content="Welcome to microbe.sg. No worries — you haven't landed on anything contagious." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #0b1220;
+    --muted: #6b7280;
+    --bubblegum: #e85a7a;
+    --ocean: #2aa3d9;
+    --mint: #2bbf8f;
+    --stripe-light: rgba(232, 90, 122, 0.05);
+    --stripe-dark: #f6dde3;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        var(--stripe-light) 0,
+        var(--stripe-light) 0.75rem,
+        var(--stripe-dark) 0.75rem,
+        var(--stripe-dark) 0.9375rem
+      );
+  }
+  .wrap {
+    position: relative;
+    width: 100%;
+    max-width: 48rem;
+    margin: 0 auto;
+    text-align: center;
+    z-index: 1;
+  }
+  .cat {
+    position: relative;
+    z-index: 2;
+    width: 11rem;
+    margin: 0 auto -3.5rem;
+  }
+  .cat img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));
+  }
+  .card {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  }
+  h1 {
+    margin: 0;
+    font-weight: 900;
+    font-size: 2.25rem;
+    line-height: 1.1;
+  }
+  .gradient-text {
+    background: linear-gradient(to right, var(--bubblegum), var(--ocean), var(--mint));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .lede {
+    margin: 1.5rem 0 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(11,18,32,0.9);
+  }
+  .breakdown-label {
+    margin: 2rem 0 0;
+    color: var(--muted);
+    font-size: 1rem;
+  }
+  .pills {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  .pill {
+    padding: 0.5rem 0.75rem;
+    border-radius: 1rem;
+  }
+  .pill.mic { background: rgba(232,90,122,0.10); color: var(--bubblegum); }
+  .pill.ro  { background: rgba(42,163,217,0.10); color: var(--ocean); }
+  .pill.be  { background: rgba(43,191,143,0.10); color: var(--mint); }
+  .pill.sum { background: var(--fg); color: var(--bg); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15); }
+  .op { color: var(--muted); }
+  .footer {
+    margin-top: 2rem;
+    color: var(--muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  @media (min-width: 768px) {
+    .cat { width: 14rem; margin-bottom: -4.5rem; }
+    .card { padding: 3rem; }
+    h1 { font-size: 3.75rem; }
+    .lede { font-size: 1.5rem; }
+    .breakdown-label { font-size: 1.125rem; }
+    .pills { font-size: 3rem; gap: 0.75rem; }
+    .pill { padding: 0.5rem 1rem; }
+  }
+</style>
+</head>
+<body>
+  <main>
+    <div class="wrap">
+      <div class="cat">
+        <img src="cat-peek.png" alt="A cute cat peeking over the welcome banner" width="1024" height="1024" />
+      </div>
+      <div class="card">
+        <h1>Welcome to <span class="gradient-text">microbe.sg</span></h1>
+        <p class="lede">No worries. You haven't landed on anything contagious.</p>
+        <p class="breakdown-label">Microbe is a combination and contraction of our names:</p>
+        <div class="pills">
+          <span class="pill mic">Mic</span>
+          <span class="op">+</span>
+          <span class="pill ro">Ro</span>
+          <span class="op">+</span>
+          <span class="pill be">Be</span>
+          <span class="op">=</span>
+          <span class="pill sum">MicRoBe</span>
+        </div>
+      </div>
+      <p class="footer">Made with love by Michelle, Roger &amp; Beth.</p>
+    </div>
+  </main>
+</body>
 </html>
