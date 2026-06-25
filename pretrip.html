@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shanghai LLKY (Oct 9–14, 2026)</title>
+  <meta name="description" content="Mobile-friendly trip resource page: flights, hotel, itinerary, contacts, and food picks for Shanghai (Oct 9–14, 2026)." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,400;17..18,500;17..18,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f5f5f7;
+      --card:#ffffff;
+      --muted:#4b5563;
+      --text:#111827;
+      --accent:#2563eb;
+      --border: rgba(17,24,39,.14);
+      --shadow: 0 10px 30px rgba(0,0,0,.10);
+      --radius: 16px;
+      --radius2: 12px;
+      --max: 860px;
+
+      /* Pills */
+      --color-1: rgba(37, 99, 235, 0.05);
+      --color-2: rgba(235, 37, 199, 0.05);
+      --color-3: rgba(235, 172, 37, 0.05);
+      --color-4: rgba(37, 235, 73, 0.05);
+      --color-5: rgba(37, 199, 235, 0.05);
+
+      --sans: "Google Sans", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --body-size: 14px;
+      --body-leading: 1.45;
+
+      --food-title: #3B3B7A;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color:var(--text);
+      background: var(--bg);
+      line-height: var(--body-leading);
+      font-size: var(--body-size);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:var(--max); margin:0 auto; padding:20px 16px 64px}
+
+    header{
+      position: sticky; top: 0; z-index: 50;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .head-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:18px 16px 16px;
+    }
+
+    .banner{
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      min-height: 182px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background-color: #f3f4f6;
+      background-image: url("shanghaiskyline.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .banner img{
+      position:absolute;
+      width:1px;
+      height:1px;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .banner-content{
+      position:absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 44px;
+      pointer-events:none;
+      text-align: center;
+    }
+    h1{
+      font-family: var(--sans);
+      font-size: 27px;
+      font-weight: 700;
+      margin:0;
+      color: #ffffff;
+      letter-spacing: .1px;
+      line-height: 1.1;
+      text-shadow: none;
+      background: transparent;
+    }
+
+    .top-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:12px;
+    }
+
+    /* Pills */
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:13px; padding:8px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      color: var(--text);
+      background: var(--color-1);
+    }
+    .pill-row .pill:nth-child(1){ background: var(--color-1); } /* Flights */
+    .pill-row .pill:nth-child(2){ background: var(--color-2); } /* Hotel */
+    .pill-row .pill:nth-child(3){ background: var(--color-3); } /* Itinerary */
+    .pill-row .pill:nth-child(4){ background: var(--color-4); } /* Contacts */
+    .pill-row .pill:nth-child(5){ background: var(--color-5); } /* Activities */
+    .pill-row .pill:nth-child(6){ background: var(--color-1); } /* Food */
+    .pill-row .pill:nth-child(7){ background: var(--color-2); } /* Pre-trip notes (matches Hotel) */
+
+    main{padding-top:18px}
+    section{
+      scroll-margin-top: 240px;
+      margin-top:14px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .sec-head{
+      padding:14px 14px 12px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      border-bottom:1px solid var(--border);
+    }
+    .sec-head h2{
+      margin:0;
+      font-size:16px;
+      font-family: var(--sans);
+      font-weight: 700;
+      letter-spacing: .1px;
+    }
+    .sec-head .hint{color:var(--muted); font-size:12px; font-weight:500}
+
+    /* Section header backgrounds */
+    #flights .sec-head{ background: var(--color-1); }
+    #hotel .sec-head{ background: var(--color-2); }
+    #itinerary .sec-head{ background: var(--color-3); }
+    #contacts .sec-head{ background: var(--color-4); }
+    #pretrip .sec-head{ background: var(--color-2); }
+
+    .sec-body{
+      padding:14px;
+      font-size: var(--body-size);
+      line-height: var(--body-leading);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .grid.two{
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 720px){
+      .grid.two{grid-template-columns: 1fr 1fr;}
+    }
+
+    .card{
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      background: #fff;
+      padding:12px;
+      font-size: var(--body-size);
+      line-height: var(--body-leading);
+    }
+    .label{color:var(--muted); font-size:12px; margin-bottom:4px}
+    .value{font-size: var(--body-size)}
+    .btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 12px; border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(17,24,39,.03);
+      color:var(--text);
+      font-size: var(--body-size);
+      text-decoration:none;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn.primary{border-color: rgba(37,99,235,.35); background: rgba(37,99,235,.10)}
+    details{
+      border:1px solid var(--border);
+      border-radius: var(--radius2);
+      background: #fff;
+      padding:10px 12px;
+      font-size: var(--body-size);
+      line-height: var(--body-leading);
+    }
+    summary{cursor:pointer; font-weight:700; font-size:14px}
+    .subhead{ color:#6B2F68; }
+    .it-meta{color:var(--muted); font-size:12px; margin-top:6px}
+    ul{margin:10px 0 0; padding-left:18px}
+    li{margin:6px 0}
+    .note{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px dashed rgba(17,24,39,.20);
+      color:var(--muted);
+      font-size:13px;
+      background: rgba(17,24,39,.02);
+    }
+
+    /* Food lists */
+    .food-item{ margin: 10px 0 0; padding: 10px 10px; border-radius: 12px; border: 1px solid rgba(17,24,39,.08); background: rgba(245,245,247,.8); }
+    .food-top{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    }
+    .food-name{ font-weight:700; color: var(--food-title); }
+    .food-meta{ color: var(--muted); font-size:12px; margin-top:4px; }
+    .tag{
+      display:inline-flex; align-items:center;
+      padding:4px 8px;
+      font-size:12px;
+      border-radius:999px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.7);
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .food-actions{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .food-actions a{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid rgba(17,24,39,.12);
+      background: rgba(255,255,255,.75);
+      color: var(--text);
+      font-size: 13px;
+      text-decoration:none;
+    }
+
+    footer{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:12px;
+      text-align:center;
+    }
+
+    @media (min-width: 720px){
+      h1{font-size:34px}
+      .banner{min-height: 220px;}
+      section{scroll-margin-top: 250px;}
+      .banner-content{
+        left:16px; right:16px;
+        bottom:46px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="head-inner">
+      <div class="banner" aria-label="Shanghai skyline banner">
+        <img alt="Shanghai skyline" src="shanghaiskyline.png" />
+        <div class="banner-content">
+          <h1>Shanghai LLKY</h1>
+        </div>
+      </div>
+
+      <div class="top-row">
+        <nav class="pill-row" aria-label="Quick navigation">
+          <a class="pill" href="shanghai.html#flights">Flights</a>
+          <a class="pill" href="shanghai.html#hotel">Hotel</a>
+          <a class="pill" href="shanghai.html#itinerary">Itinerary</a>
+          <a class="pill" href="shanghai.html#contacts">Contacts</a>
+          <a class="pill" href="activities.html">Activities</a>
+          <a class="pill" href="food.html">Food</a>
+          <a class="pill" href="pretrip.html">Pre-trip notes</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <main>
+      <!-- PRE-TRIP NOTES -->
+            <section id="pretrip">
+        <div class="sec-head">
+          <h2>Pre-trip notes</h2>
+          <div class="hint">Read before you fly</div>
+        </div>
+        <div class="sec-body">
+
+          <!-- APPS -->
+          <details open>
+            <summary><span class="subhead">Apps</span> — download before the trip</summary>
+            <ul>
+              <li><strong>Meituan (美团)</strong> — food delivery, restaurant bookings, reviews</li>
+              <li><strong>Dianping (大众点评)</strong> — like the Chinese Yelp, good for checking ratings and reviews</li>
+              <li><strong>Alipay (支付宝)</strong> — essential for payments, also works for Meituan ordering</li>
+              <li><strong>WeChat (微信)</strong> — need this for everything — payments, restaurant reservations, calling ahead, QR codes</li>
+            </ul>
+            <p>Set all of these up before you land. Some restaurants only take reservations through Dianping or WeChat, and a lot of street stalls and smaller places don't accept cash or card.</p>
+            <div class="note">
+              Before you pay for any meal or in any store, always check if there's a promo running on Dianping or Meituan first. A lot of places have discounts, vouchers, or set meal deals on these apps that you won't see on the menu.
+            </div>
+            <div class="note">
+              Alipay and WeChat Pay add a service charge on bills above RMB 200. If you want to avoid it, just split the bill or ask if they take credit card. Most places are quite flexible about it, unless it's a massive amount.
+            </div>
+          </details>
+
+          <!-- FOOD -->
+          <details open>
+            <summary><span class="subhead">Food</span> — Eat In or Order on Meituan</summary>
+            <ul>
+              <li>Quick rule of thumb: anything above 4.2 stars is good. Don't chase the 5-star places — ratings that perfect are usually bought 😂 Aim for 4.2–4.7 and you're in safe territory.</li>
+              <li>You can just pop in or order for delivery on Meituan, if you're having a lazy day at the hotel.</li>
+            </ul>
+          </details>
+
+          <!-- GETTING AROUND -->
+          <details open>
+            <summary><span class="subhead">Getting around</span></summary>
+            <ul>
+              <li>Get a Shanghai Metro transport card at the airport (¥20 deposit, reloadable) — works on all lines and buses</li>
+              <li>Download Baidu Maps (better than Google for Shanghai metro navigation — works without VPN)</li>
+            </ul>
+          </details>
+
+        </div>
+      </section>
+
+      <footer>
+        Last updated: <span id="updatedAt"></span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('updatedAt').textContent =
+      new Date().toLocaleString('en-SG', { timeZone: 'Asia/Singapore' });
+
+    function download(filename, text) {
+      const element = document.createElement('a');
+      element.setAttribute('href', 'data:text/calendar;charset=utf-8,' + encodeURIComponent(text));
+      element.setAttribute('download', filename);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element);
+    }
+
+    function toICSDate(d){
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth()+1).padStart(2,'0');
+      const dd = String(d.getDate()).padStart(2,'0');
+      return `${yyyy}${mm}${dd}`;
+    }
+
+    document.getElementById('addToCalendarBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const TRIP_YEAR = 2026;
+      const start = new Date(TRIP_YEAR, 9, 9);
+      const end   = new Date(TRIP_YEAR, 9, 15);
+
+      const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Shanghai LLKY//Resource Page//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:${Date.now()}@shanghai-llky
+DTSTAMP:${toICSDate(new Date())}T000000Z
+SUMMARY:Shanghai Trip (Oct 9–14, 2026)
+DTSTART;VALUE=DATE:${toICSDate(start)}
+DTEND;VALUE=DATE:${toICSDate(end)}
+DESCRIPTION:Flights, hotel, itinerary, contacts, and food picks.
+END:VEVENT
+END:VCALENDAR`;
+
+      download('Shanghai-Trip-Oct9-14-2026.ics', ics);
+    });
+
+    const HOTEL_MAP_URL = "";
+    const HOTEL_SITE_URL = "";
+    const hotelMapBtn = document.getElementById('hotelMapBtn');
+    const hotelWebsiteBtn = document.getElementById('hotelWebsiteBtn');
+
+    hotelMapBtn.addEventListener('click', (e) => {
+      if(!HOTEL_MAP_URL){ e.preventDefault(); alert("Add your hotel map link in the HTML (HOTEL_MAP_URL)."); }
+    });
+    hotelWebsiteBtn.addEventListener('click', (e) => {
+      if(!HOTEL_SITE_URL){ e.preventDefault(); alert("Add your hotel website link in the HTML (HOTEL_SITE_URL)."); }
+    });
+
+    if(HOTEL_MAP_URL) hotelMapBtn.href = HOTEL_MAP_URL;
+    if(HOTEL_SITE_URL) hotelWebsiteBtn.href = HOTEL_SITE_URL;
+  </script>
+</body>
+</html>
