@@ -1,0 +1,254 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Kyushu Driving Holiday</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a single route column, like a road-book. Day stops hang off a vertical road line; a sticky date strip jumps between days. */
+:root{
+  --ground:#EDF1F0;      /* steam over mineral water */
+  --paper:#F8FAF9;
+  --ink:#1D2729;         /* basalt */
+  --muted:#5B6B6D;
+  --line:#C9D3D2;
+  --sea:#0D6F78;         /* Umi Jigoku blue */
+  --sea-soft:#D5E9E9;
+  --ember:#A9382A;       /* Chinoike red, for on-site decisions */
+  --ember-soft:#F3DEDA;
+  --display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",Georgia,serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#121A1C;--paper:#182225;--ink:#E4ECEB;--muted:#93A4A5;--line:#2C3A3D;
+  --sea:#4FB8C1;--sea-soft:#163639;--ember:#E8806F;--ember-soft:#3A221F;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ground:#121A1C;--paper:#182225;--ink:#E4ECEB;--muted:#93A4A5;--line:#2C3A3D;
+  --sea:#4FB8C1;--sea-soft:#163639;--ember:#E8806F;--ember-soft:#3A221F;color-scheme:dark}
+
+body{background:var(--ground);color:var(--ink);font:400 1rem/1.55 var(--body)}
+.wrap{max-width:46rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+a{color:var(--sea)}
+:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+
+header{padding-block:2.25rem 1.5rem}
+.kicker{font:500 .75rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--sea)}
+h1{font-size:clamp(2.2rem,8vw,3.4rem);font-weight:800;margin-top:.6rem}
+h1 span{display:block;font-size:.42em;font-weight:600;color:var(--muted);margin-top:.5rem;letter-spacing:.02em}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:.5rem 1.25rem;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+.facts div{min-width:0}
+.facts dt{font:500 .7rem/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:.2rem 0 0;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* route of bases */
+.bases{display:flex;flex-wrap:wrap;gap:.35rem .3rem;margin-top:1.25rem;font-size:.85rem;align-items:center}
+.bases span{white-space:nowrap}
+.bases i{color:var(--muted);font-style:normal}
+
+/* sticky day strip */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ground)}
+nav.strip{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);border-bottom:1px solid var(--line)}
+.strip .wrap{display:flex;gap:.35rem;overflow-x:auto;padding-block:.6rem;scrollbar-width:none}
+.strip a{flex:0 0 auto;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:.3rem .65rem;font:500 .78rem/1 var(--mono);font-variant-numeric:tabular-nums;background:var(--paper)}
+.strip a.today{background:var(--sea);border-color:var(--sea);color:var(--paper)}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin:1.25rem 0 .5rem;font-size:.82rem;color:var(--muted)}
+.chip{display:inline-block;font:500 .68rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:.28rem .45rem;border-radius:4px;vertical-align:.1em}
+.chip.decide{background:var(--ember-soft);color:var(--ember)}
+.chip.opt{background:var(--sea-soft);color:var(--sea)}
+.chip.fly{background:var(--ink);color:var(--paper)}
+
+/* days */
+.days{display:grid;gap:0;margin-bottom:2rem}
+.day{display:grid;grid-template-columns:3.4rem 1fr;gap:0 .9rem;scroll-margin-top:calc(env(safe-area-inset-top,0px) + 3.6rem)}
+.rail{position:relative;display:flex;flex-direction:column;align-items:center}
+.rail::after{content:"";flex:1;width:2px;background:repeating-linear-gradient(var(--line) 0 6px,transparent 6px 11px);margin-top:.4rem}
+.day:last-child .rail::after{display:none}
+.num{width:3rem;height:3rem;border-radius:50%;border:2px solid var(--sea);display:grid;place-items:center;font:800 1.2rem/1 var(--display);color:var(--sea);background:var(--ground)}
+.day.today .num{background:var(--sea);color:var(--paper)}
+.body{min-width:0;padding-bottom:2rem}
+.date{font:500 .78rem/1 var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase;padding-top:.15rem}
+.day h2{font-size:1.45rem;font-weight:800;margin-top:.35rem}
+.stay{margin-top:.35rem;font-size:.92rem;color:var(--muted)}
+.stay b{color:var(--ink)}
+.today-tag{display:none;margin-left:.4rem}
+.day.today .today-tag{display:inline-block}
+
+.legs{list-style:none;margin:.9rem 0 0;padding:0;border:1px solid var(--line);border-radius:8px;background:var(--paper);overflow:hidden}
+.legs li{display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;padding:.6rem .8rem;border-top:1px solid var(--line);align-items:baseline}
+.legs li:first-child{border-top:0}
+.legs .what{min-width:0}
+.legs .what small{display:block;color:var(--muted);font-size:.85rem;margin-top:.15rem}
+.legs .dist{font:500 .8rem/1.3 var(--mono);font-variant-numeric:tabular-nums;color:var(--muted);text-align:right;white-space:nowrap}
+.legs li.drive .what::before{content:"→ ";color:var(--sea);font-weight:700}
+
+.notes{margin:.8rem 0 0;padding-left:1.1rem;font-size:.92rem;display:grid;gap:.35rem}
+.notes li{max-width:62ch}
+.notes li::marker{color:var(--sea)}
+
+section.block{padding-block:1.75rem;border-top:1px solid var(--line)}
+section.block h2{font-size:1.4rem;font-weight:800;margin-bottom:.9rem}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:.55rem}
+.checks label{display:flex;gap:.65rem;align-items:flex-start;cursor:pointer;max-width:64ch}
+.checks input{margin-top:.25rem;accent-color:var(--sea);width:1.05rem;height:1.05rem;flex:0 0 auto}
+.checks input:checked + span{color:var(--muted);text-decoration:line-through}
+.phone{font-family:var(--mono);font-size:.9em;user-select:all}
+.drivetotal{font:500 .85rem/1.4 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+footer{padding-block:1rem 3rem;color:var(--muted);font-size:.82rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<header class="wrap">
+  <div class="kicker">九州 · Self-drive · Nov–Dec 2026</div>
+  <h1>Kyushu Driving Holiday<span>Fukuoka to Kagoshima by car, with Osaka at each end</span></h1>
+  <dl class="facts">
+    <div><dt>Dates</dt><dd>29 Nov – 10 Dec</dd></div>
+    <div><dt>Length</dt><dd>12 days, 11 nights</dd></div>
+    <div><dt>Travelling</dt><dd>5 · grandparents, parents, child (12)</dd></div>
+    <div><dt>Kyushu driving</dt><dd id="kmTotal">—</dd></div>
+  </dl>
+  <div class="bases" aria-label="Overnight bases in order">
+    <span>Kansai Airport</span><i>›</i><span>Fukuoka</span><i>›</i><span>Beppu ×2</span><i>›</i><span>Aso</span><i>›</i><span>Miyazaki ×2</span><i>›</i><span>Kagoshima ×2</span><i>›</i><span>Osaka ×2</span>
+  </div>
+</header>
+
+<nav class="strip" aria-label="Jump to day"><div class="wrap" id="strip"></div></nav>
+
+<main class="wrap">
+  <div class="legend">
+    <span><span class="chip decide">Decide on site</span> assess access at the car park</span>
+    <span><span class="chip opt">Optional</span> only if energy and time allow</span>
+  </div>
+  <div class="days" id="days"></div>
+
+  <section class="block" id="todo">
+    <h2>Before we fly</h2>
+    <ul class="checks" id="checks"></ul>
+  </section>
+
+  <section class="block">
+    <h2>On the road</h2>
+    <ul class="notes">
+      <li>Volcanic sites are best before midday. Cloud builds over Aso in the afternoon.</li>
+      <li>Nakadake crater access changes with the volcanic alert level. Check the same morning before driving up.</li>
+      <li>Sakurajima ferry takes the car without a reservation. About ¥1,700 one way, paid on the Sakurajima side.</li>
+      <li>Shinkansen on 8 Dec: bags over 160 cm total (L+W+H) need an oversized-luggage seat reservation.</li>
+    </ul>
+  </section>
+  <footer>Drive distances and times are planning estimates. Checklist ticks are saved on this device only.</footer>
+</main>
+
+<script>
+const D = [
+ {d:"2026-11-29",t:"Arrive Osaka",stay:"Hotel Nikko Kansai Airport",
+  legs:[{w:"SQ 622 Singapore → Kansai",s:"14:25 – 21:25",fly:1}],
+  notes:["Overnight at the airport hotel, a short walk from arrivals."]},
+ {d:"2026-11-30",t:"Fly to Fukuoka",stay:"Solaria Nishitetsu Hotel Fukuoka",
+  legs:[{w:"Shuttle bus, Terminal 1 → Terminal 2"},
+        {w:"Peach MM 155 Kansai → Fukuoka",s:"14:50 – 16:15",fly:1},
+        {w:"Pick up rental car",s:"Domestic terminal"},
+        {w:"Hotel",km:8.5,m:"0:22",drive:1}],
+  notes:["Evening in Tenjin and Daimyo, dinner near the hotel."]},
+ {d:"2026-12-01",t:"Outlets and Yufuin",stay:"AMANEK Beppu YULA-RE",n:"1/2",
+  legs:[{w:"Tosu Premium Outlets",km:33.9,m:"0:42",drive:1},
+        {w:"Yufuin Onsen",s:"Lake Kinrin, Yunotsubo Kaido, foot bath",km:95.6,m:"1:12",drive:1},
+        {w:"Hotel",km:24.1,m:"0:40",drive:1}],
+  notes:["Walk to Kitahama and Beppu JR Station for dinner and shopping."]},
+ {d:"2026-12-02",t:"Beppu Hells",stay:"AMANEK Beppu YULA-RE",n:"2/2",
+  legs:[{w:"Beppu Jigoku (Hells)",s:"Umi, Kamado and Oniyama first",km:6.1,m:"0:17",drive:1},
+        {w:"Beppu City Traditional Bamboo Crafts Center",km:3.2,m:"0:09",drive:1},
+        {w:"Sand bath: Beppu Beach Sand Bath or Takegawara Onsen",opt:1},
+        {w:"Hotel",km:3.7,m:"0:11",drive:1}],
+  notes:["Chinoike and Tatsumaki are add-ons if time allows. Check the Tatsumaki geyser schedule on arrival to set the order."]},
+ {d:"2026-12-03",t:"Oita to Mount Aso",stay:"Kamenoi Hotel Aso Park Resort",
+  legs:[{w:"Oita Prefectural Art Museum",km:11.1,m:"0:21",drive:1},
+        {w:"Mount Aso",s:"Kusasenri and Aso Volcano Museum",km:98.0,m:"1:55",drive:1},
+        {w:"Hotel",drive:1}],
+  notes:["Dinner at the hotel."]},
+ {d:"2026-12-04",t:"Crater and Takachiho",stay:"Phoenix Seagaia Ocean Tower",n:"1/2",
+  legs:[{w:"Mount Aso, Nakadake crater",s:"Breakfast first, then up early",decide:1,drive:1},
+        {w:"Takachiho Gorge",s:"Barrier-free platform at Dai-1 Oshioi car park",km:56.3,m:"1:13",drive:1},
+        {w:"Hotel, Miyazaki",km:126,m:"1:54",drive:1}],
+  notes:["Boat ride at Takachiho is skipped.","Dinner in Nishitachi: Enishi, Miyachiku, Ogura Honten or Maruman."]},
+ {d:"2026-12-05",t:"Nichinan coast",stay:"Phoenix Seagaia Ocean Tower",n:"2/2",
+  legs:[{w:"Udo Shrine",s:"Go early. Allow 45–60 min",km:47.3,m:"1:00",decide:1,drive:1},
+        {w:"Sun Messe Nichinan",s:"Electric buggy rental available",km:5.7,m:"0:12",drive:1},
+        {w:"Aoshima Island",s:"Flat and easy, a gentle finish",km:19.6,m:"0:26",drive:1},
+        {w:"Hotel",km:24.8,m:"0:33",drive:1}],
+  notes:["Udo Shrine has about 800 stone steps and no step-free route. A partial descent still gives a good view of the shrine against the cliffs."]},
+ {d:"2026-12-06",t:"Ibusuki sand bath",stay:"Richmond Hotel Kagoshima Kinseicho",n:"1/2",
+  legs:[{w:"Ibusuki, Sunamushi Kaikan Saraku",s:"Hot sand bath and onsen",km:178,m:"2:51",opt:1,drive:1},
+        {w:"Hotel, Kagoshima",km:50.0,m:"1:18",drive:1}],
+  notes:["Use the private shower rooms after the sand bath and skip the communal bath.","Grandparents to check health suitability for the sand bath beforehand.","Evening walk to Tenmonkan. Kurobuta shabu-shabu at Kumaso-tei (book ahead, Sunday is busy), Ajimori or Ichiniisan."]},
+ {d:"2026-12-07",t:"Sakurajima",stay:"Richmond Hotel Kagoshima Kinseicho",n:"2/2",
+  legs:[{w:"Car ferry across to Sakurajima",s:"No booking. About ¥1,700 one way"},
+        {w:"Visitor Center, then Yōgan Nagisa foot bath"},
+        {w:"Lunch at Michi-no-Eki Sakurajima",s:"Cash only, closes around 2:30–3 PM"},
+        {w:"Yunohira Observation Deck",s:"Lift and disabled parking"},
+        {w:"Arimura Lava Observation Deck"},
+        {w:"Kurokami buried torii",opt:1},
+        {w:"Ferry back to the hotel",drive:1}],
+  notes:[]},
+ {d:"2026-12-08",t:"Shinkansen to Osaka",stay:"30 Pieces Namba",n:"1/2",
+  legs:[{w:"Kagoshima Chuo Station",s:"Return the rental car here",km:2.5,m:"0:11",drive:1},
+        {w:"Shinkansen to Shin-Osaka",s:"About 4 hours"},
+        {w:"Hotel, Namba"}],
+  notes:["Reserve oversized-luggage seats if any bag is over 160 cm total."]},
+ {d:"2026-12-09",t:"Osaka",stay:"30 Pieces Namba",n:"2/2",
+  legs:[{w:"Free day in Osaka",s:"Plan to be set closer to the date"}],
+  notes:[]},
+ {d:"2026-12-10",t:"Fly home",stay:null,
+  legs:[{w:"Namba → Kansai Airport"},{w:"SQ 621 Kansai → Singapore",s:"16:50 – 22:40",fly:1}],
+  notes:[]}
+];
+
+const TODO=[
+ "Book Kumaso-tei for Sunday 6 Dec dinner",
+ "Call Sun Messe Nichinan to confirm IDP is accepted for the buggy: 0987-29-1900",
+ "Confirm IDP requirements for Udo Shrine visit",
+ "Grandparents check health suitability for the Ibusuki sand bath",
+ "Reserve Shinkansen oversized-luggage seats for 8 Dec if needed",
+ "Plan the Osaka free day (9 Dec)",
+ "Morning of 4 Dec: check Nakadake crater status"
+];
+
+const fmt=s=>{const x=new Date(s+"T00:00:00");return x.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pad=n=>String(n).padStart(2,"0");
+const now=new Date();const todayISO=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+
+let total=0;
+document.getElementById("days").innerHTML=D.map((x,i)=>{
+  const id="day-"+(i+1);const isToday=x.d===todayISO;
+  const legs=x.legs.map(l=>{
+    if(l.km) total+=l.km;
+    const chips=(l.decide?' <span class="chip decide">Decide on site</span>':'')+(l.opt?' <span class="chip opt">Optional</span>':'')+(l.fly?' <span class="chip fly">Flight</span>':'');
+    const dist=l.km?`${l.km} km<br>${l.m}`:'';
+    return `<li class="${l.drive?'drive':''}"><div class="what">${esc(l.w)}${chips}${l.s?`<small>${esc(l.s)}</small>`:''}</div><div class="dist">${dist}</div></li>`;
+  }).join("");
+  const notes=x.notes.length?`<ul class="notes">${x.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:"";
+  const stay=x.stay?`<div class="stay">Stay: <b>${esc(x.stay)}</b>${x.n?` · night ${x.n}`:''}</div>`:`<div class="stay">Homeward</div>`;
+  return `<article class="day${isToday?' today':''}" id="${id}"><div class="rail"><div class="num">${i+1}</div></div>
+  <div class="body"><div class="date">Day ${i+1} · ${fmt(x.d)}<span class="chip fly today-tag">Today</span></div><h2>${esc(x.t)}</h2>${stay}<ul class="legs">${legs}</ul>${notes}</div></article>`;
+}).join("");
+document.getElementById("kmTotal").textContent=`≈ ${Math.round(total)} km`;
+
+document.getElementById("strip").innerHTML=D.map((x,i)=>{
+  const dd=new Date(x.d+"T00:00:00");
+  return `<a href="#day-${i+1}" class="${x.d===todayISO?'today':''}">${dd.getDate()} ${dd.toLocaleDateString("en-GB",{month:"short"})}</a>`;
+}).join("")+`<a href="#todo">To do</a>`;
+
+let saved={};try{saved=JSON.parse(localStorage.getItem("kyushu-checks")||"{}")}catch(e){}
+document.getElementById("checks").innerHTML=TODO.map((t,i)=>{
+  const txt=esc(t).replace(/(\d{4}-\d{2}-\d{4})/,'<span class="phone">$1</span>');
+  return `<li><label for="c${i}"><input type="checkbox" id="c${i}" ${saved[i]?'checked':''}><span>${txt}</span></label></li>`;
+}).join("");
+document.getElementById("checks").addEventListener("change",e=>{
+  const i=e.target.id.slice(1);saved[i]=e.target.checked;
+  try{localStorage.setItem("kyushu-checks",JSON.stringify(saved))}catch(err){}
+});
+</script>
+
+</body></html>
